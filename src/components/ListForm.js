@@ -5,12 +5,16 @@ import delay from 'lodash/delay'
 
 const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
 
-const addOnEnter = (fields) => (e) => {
+const addLink = (fields) => (e) => {
   if (e.key !== 'Enter') return
   e.preventDefault()
   if (!e.target.value.match(isLink)) return
   fields.push(e.target.value)
   e.target.value = ''
+}
+const removeLink = (fields, index) => (e) => {
+  e.preventDefault()
+  fields.remove(index)
 }
 
 const ListForm = (props) => (
@@ -18,7 +22,7 @@ const ListForm = (props) => (
     <FieldArray name='links' component={ (props) => (
       <div>
         <input
-          onKeyDown={ addOnEnter(props.fields) }
+          onKeyDown={ addLink(props.fields) }
           placeholder='link here...'
           autoFocus={ true } />
         <ul>
@@ -26,6 +30,9 @@ const ListForm = (props) => (
             <li key={ index }>
               <Field name={ fieldName } component='input' type='hidden' />
               { props.fields.get(index) }
+              <button onClick={ removeLink(props.fields, index) }>
+                x
+              </button>
             </li>
           )) }
         </ul>
