@@ -1,38 +1,29 @@
 import React from 'react'
 import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
+import { withProps } from 'recompose'
 import delay from 'lodash/delay'
 import Embedly from 'react-embedly'
 
-const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
-
-const addLink = (fields) => (e) => {
-  if (e.key !== 'Enter') return
-  e.preventDefault()
-  if (!e.target.value.match(isLink)) return
-  fields.push(e.target.value)
-  e.target.value = ''
-}
-const removeLink = (fields, index) => (e) => {
-  e.preventDefault()
-  fields.remove(index)
-}
-
-const ListForm = (props) => (
-  <form onSubmit={ props.handleSubmit }>
-    <FieldArray name='links' component={ (props) => (
+const ListForm = ({ handleSubmit, addLink, removeLink }) => (
+  <form onSubmit={ handleSubmit }>
+    <FieldArray name='links' component={ ({ fields }) => (
       <div>
         <input
-          onKeyDown={ addLink(props.fields) }
+          onKeyDown={ addLink(fields) }
           placeholder='link here...'
           autoFocus={ true } />
         <ul>
-          { props.fields.map((fieldName, index) => (
+          { fields.map((fieldName, index) => (
             <li key={ index }>
               <Field name={ fieldName } component='input' type='hidden' />
-              <button type='button' onClick={ removeLink(props.fields, index) }>x</button>
+              <button
+                type='button'
+                onClick={ removeLink(fields, index) }>
+                x
+              </button>
               <Embedly
-                url={ props.fields.get(index) }
+                url={ fields.get(index) }
                 apiKey='d3584d5e925a4557b14976bf4f06d0b4' />
             </li>
           )) }
@@ -49,6 +40,22 @@ const ListForm = (props) => (
   </form>
 )
 
+const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
+
+const update = (props) => ({
+  addLink: (fields) => (e) => {
+    if (e.key !== 'Enter') return
+    e.preventDefault()
+    if (!e.target.value.match(isLink)) return
+    fields.push(e.target.value)
+    e.target.value = ''
+  },
+  removeLink: (fields, index) => (e) => {
+    e.preventDefault()
+    fields.remove(index)
+  },
+})
+
 const formOptions = {
   form: 'List',
   onSubmitSuccess(data, dispatch, props) {
@@ -57,5 +64,6 @@ const formOptions = {
 }
 
 export default compose(
-  reduxForm(formOptions)
+  withProps(update),
+  reduxForm(formOptions),
 )(ListForm)

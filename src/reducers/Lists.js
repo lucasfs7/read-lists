@@ -16,7 +16,6 @@ export const create = createAction(
 export default handleActions({
   [create]: (state, action) => ({
     ...state,
-    isFetching: true,
     lists: [ ...state.lists, action.payload ]
   }),
 }, initialState)
