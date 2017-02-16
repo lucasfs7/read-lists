@@ -2,6 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 import delay from 'lodash/delay'
+import Embedly from 'react-embedly'
 
 const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
 
@@ -29,10 +30,10 @@ const ListForm = (props) => (
           { props.fields.map((fieldName, index) => (
             <li key={ index }>
               <Field name={ fieldName } component='input' type='hidden' />
-              { props.fields.get(index) }
-              <button onClick={ removeLink(props.fields, index) }>
-                x
-              </button>
+              <button type='button' onClick={ removeLink(props.fields, index) }>x</button>
+              <Embedly
+                url={ props.fields.get(index) }
+                apiKey='d3584d5e925a4557b14976bf4f06d0b4' />
             </li>
           )) }
         </ul>
