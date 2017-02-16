@@ -3,10 +3,9 @@ import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 import { withProps } from 'recompose'
 import delay from 'lodash/delay'
-import Embedly from 'react-embedly'
 
-const ListForm = ({ handleSubmit, addLink, removeLink }) => (
-  <form onSubmit={ handleSubmit }>
+const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
+  <form onSubmit={ handleSubmit } className={ className }>
     <FieldArray name='links' component={ ({ fields }) => (
       <div>
         <input
@@ -19,12 +18,11 @@ const ListForm = ({ handleSubmit, addLink, removeLink }) => (
               <Field name={ fieldName } component='input' type='hidden' />
               <button
                 type='button'
+                tabIndex={ -1 }
                 onClick={ removeLink(fields, index) }>
                 x
               </button>
-              <Embedly
-                url={ fields.get(index) }
-                apiKey='d3584d5e925a4557b14976bf4f06d0b4' />
+              <span>{ fields.get(index) }</span>
             </li>
           )) }
         </ul>
@@ -36,6 +34,7 @@ const ListForm = ({ handleSubmit, addLink, removeLink }) => (
       type='text'
       required={ true }
       placeholder='name your list...' />
+    <button type='submit'>Save</button>
   </form>
 )
 
