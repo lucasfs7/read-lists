@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import Immutable from 'seamless-immutable'
+import uuid from 'uuid/v4'
 
 export const name = 'lists'
 
@@ -10,7 +11,7 @@ const initialState = Immutable({
 
 export const create = createAction(
   'CREATE_LIST',
-  (list) => list
+  (list) => ({ ...list, id: uuid() })
 )
 
 export default handleActions({
