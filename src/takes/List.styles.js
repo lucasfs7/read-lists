@@ -27,7 +27,11 @@ export const title = css({
 
 export const link = css({
   marginTop: '20px',
+  padding: '20px',
   '&:hover': {
     backgroundColor: colors.base3,
+  },
+  '& .embedly ': {
+    border: 'none !important',
   },
 })
