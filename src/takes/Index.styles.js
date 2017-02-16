@@ -23,10 +23,17 @@ export const form = css({
   },
   '& li': {
     margin: '10px 0',
+    '& span': {
+      marginRight: '10px',
+    },
   },
-  '& button[type="button"]': {
+  '& button': {
     background: colors.base3,
     border: 'none',
+    cursor: 'pointer',
+    outline: 'none',
+  },
+  '& button[type="button"]': {
     borderRadius: '50%',
     color: colors.base4,
     height: '1em',
@@ -34,8 +41,6 @@ export const form = css({
     width: '1em',
   },
   '& button[type="submit"]': {
-    backgroundColor: colors.base3,
-    border: 'none',
     color: colors.base1,
     fontWeight: '600',
     padding: '20px',
@@ -51,6 +56,6 @@ export const container = css({
 
 export const lists = css({
   borderTop: `1px solid ${ colors.base6 }`,
-  margin: '20px 0',
+  margin: '20px 0 0 0',
   padding: '20px 0',
 })

@@ -4,7 +4,7 @@ import * as colors from 'config/colors'
 export const container = css({
   backgroundColor: colors.base5,
   color: colors.base6,
-  height: '100vh',
+  minHeight: '100vh',
 })
 
 export const header = css({

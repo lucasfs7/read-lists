@@ -16,13 +16,13 @@ const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
           { fields.map((fieldName, index) => (
             <li key={ index }>
               <Field name={ fieldName } component='input' type='hidden' />
+              <span>{ fields.get(index) }</span>
               <button
                 type='button'
                 tabIndex={ -1 }
                 onClick={ removeLink(fields, index) }>
                 x
               </button>
-              <span>{ fields.get(index) }</span>
             </li>
           )) }
         </ul>
