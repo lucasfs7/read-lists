@@ -3,9 +3,12 @@ import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 import delay from 'lodash/delay'
 
+const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
+
 const addOnEnter = (fields) => (e) => {
   if (e.key !== 'Enter') return
   e.preventDefault()
+  if (!e.target.value.match(isLink)) return
   fields.push(e.target.value)
   e.target.value = ''
 }
