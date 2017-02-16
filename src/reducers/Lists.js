@@ -15,7 +15,7 @@ export const create = createAction(
 )
 
 export default handleActions({
-  [create]: (state, action) => ({
+  [create]: (state, action) => Immutable({
     ...state,
     lists: [ ...state.lists, action.payload ]
   }),
