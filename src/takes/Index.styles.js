@@ -19,14 +19,12 @@ export const form = {
 
 export const container = css({
   ...form,
-})
-
-export const title = css({
-  fontSize: '2em',
-  margin: '20px',
+  maxWidth: '500px',
+  margin: '0 auto',
 })
 
 export const lists = css({
-  backgroundColor: colors.base3,
-  borderTop: `5px solid ${ colors.base4 }`,
+  borderTop: `1px solid ${ colors.base6 }`,
+  margin: '20px 0',
+  padding: '20px 0',
 })

@@ -36,7 +36,6 @@ const ListForm = ({ handleSubmit, addLink, removeLink }) => (
       type='text'
       required={ true }
       placeholder='name your list...' />
-    <button type='submit'>Save</button>
   </form>
 )
 

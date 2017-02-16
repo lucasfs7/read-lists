@@ -8,10 +8,11 @@ export const container = css({
 })
 
 export const header = css({
-  backgroundColor: colors.base3,
-  borderBottom: `5px solid ${ colors.base4 }`,
   padding: '20px',
   textAlign: 'center',
   fontSize: '4em',
+  maxWidth: '500px',
+  margin: '0 auto',
+  position: 'relative',
   textShadow: `3px 3px 0 ${ colors.base1 } , 4px 4px 0 ${ colors.base1 }`,
 })

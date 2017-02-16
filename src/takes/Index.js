@@ -21,7 +21,6 @@ const dispatchMap = (dispatch) => ({
 
 const IndexTake = (props) => (
   <div className={ styles.container }>
-    <h2 className={ styles.title }>New List</h2>
     <ListForm onSubmit={ props.createList } />
     <div className={ styles.lists }>
       <h2>Your Lists ({ props.listsData.lists.length })</h2>
