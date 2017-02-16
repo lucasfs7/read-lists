@@ -13,9 +13,8 @@ const stateMap = (state) => ({
 })
 
 const dispatchMap = (dispatch) => ({
-  createList(data, e, form) {
+  createList(data) {
     dispatch(listsActions.create(data))
-    form.reset()
   }
 })
 

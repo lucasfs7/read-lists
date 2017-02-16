@@ -1,6 +1,7 @@
 import React from 'react'
 import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
+import delay from 'lodash/delay'
 
 const addOnEnter = (fields) => (e) => {
   if (e.key !== 'Enter') return
@@ -34,6 +35,9 @@ const ListForm = (props) => (
 
 const formOptions = {
   form: 'List',
+  onSubmitSuccess(data, dispatch, props) {
+    delay(props.reset, 1)
+  }
 }
 
 export default compose(
