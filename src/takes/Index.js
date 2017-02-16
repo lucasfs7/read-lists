@@ -2,6 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import * as listsActions from 'reducers/Lists'
+import * as styles from 'takes/Index.styles'
 
 import ListForm from 'components/ListForm'
 
@@ -19,17 +20,19 @@ const dispatchMap = (dispatch) => ({
 })
 
 const IndexTake = (props) => (
-  <div>
-    <h2>New List</h2>
+  <div className={ styles.container }>
+    <h2 className={ styles.title }>New List</h2>
     <ListForm onSubmit={ props.createList } />
-    <h2>Your Lists ({ props.listsData.lists.length })</h2>
-    <ul>
-      { props.listsData.lists.map((list, index) => (
-        <li key={ index }>
-          { list.name } - { list.links.length } link(s)
-        </li>
-      )) }
-    </ul>
+    <div className={ styles.lists }>
+      <h2>Your Lists ({ props.listsData.lists.length })</h2>
+      <ul>
+        { props.listsData.lists.map((list, index) => (
+          <li key={ index }>
+            { list.name } - { list.links.length } link(s)
+          </li>
+        )) }
+      </ul>
+    </div>
   </div>
 )
 
