@@ -1,35 +1,39 @@
 import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import * as linksListActions from 'reducers/LinksList'
+import * as listsActions from 'reducers/Lists'
+
+import ListForm from 'components/ListForm'
 
 export const path = '/'
 export const scene = 'app'
 
 const stateMap = (state) => ({
-  linksList: state.linksList,
+  listsData: state.lists,
 })
 
 const dispatchMap = (dispatch) => ({
-  addLink(e) {
-    e.preventDefault()
-    dispatch(linksListActions.addLink(e.target[0].value))
+  createList(data, e, form) {
+    dispatch(listsActions.create(data))
+    form.reset()
   }
 })
 
-export const component = compose(
-  connect(stateMap, dispatchMap)
-)((props) => (
+const IndexTake = (props) => (
   <div>
-    <h1>add links</h1>
-    <form onSubmit={ props.addLink }>
-      <input placeholder='paste a link here' />
-    </form>
+    <h2>New List</h2>
+    <ListForm onSubmit={ props.createList } />
+    <h2>Your Lists ({ props.listsData.lists.length })</h2>
     <ul>
-      { props.linksList.links.map((link, index) => (
-        <li key={ index }>{ link }</li>
+      { props.listsData.lists.map((list, index) => (
+        <li key={ index }>
+          { list.name } - { list.links.length } link(s)
+        </li>
       )) }
     </ul>
   </div>
-))
+)
 
+export const component = compose(
+  connect(stateMap, dispatchMap)
+)(IndexTake)

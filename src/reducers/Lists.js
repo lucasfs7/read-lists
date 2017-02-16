@@ -1,21 +1,22 @@
 import { createAction, handleActions } from 'redux-actions'
 import Immutable from 'seamless-immutable'
 
-export const name = 'linksList'
+export const name = 'lists'
 
 const initialState = Immutable({
   isFetching: false,
-  links: []
+  lists: []
 })
 
-export const addLink = createAction(
-  'ADD_LINK',
-  (link) => link
+export const create = createAction(
+  'CREATE_LIST',
+  (list) => list
 )
 
 export default handleActions({
-  [addLink]: (state, action) => ({
+  [create]: (state, action) => ({
     ...state,
-    links: [ ...state.links, action.payload ]
-  })
+    isFetching: true,
+    lists: [ ...state.lists, action.payload ]
+  }),
 }, initialState)

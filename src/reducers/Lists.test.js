@@ -1,4 +1,4 @@
-import { reducer, request } from 'reducers/LinksList'
+import { reducer, request } from 'reducers/Lists'
 
 it('should return type REQUEST', () => {
   expect(request()).toEqual({ type: 'REQUEST' })
