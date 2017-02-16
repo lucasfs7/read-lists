@@ -31,7 +31,12 @@ const ListForm = (props) => (
         </ul>
       </div>
     ) } />
-    <Field name='name' component='input' type='text' placeholder='name your list...' />
+    <Field
+      name='name'
+      component='input'
+      type='text'
+      required={ true }
+      placeholder='name your list...' />
     <button type='submit'>Save</button>
   </form>
 )
