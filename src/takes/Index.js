@@ -2,6 +2,7 @@ import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { lifecycle } from 'recompose'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/Index.styles'
 
@@ -35,9 +36,19 @@ const stateMap = (state) => ({
 const dispatchMap = (dispatch) => ({
   createList(data) {
     dispatch(listsActions.create(data))
-  }
+  },
+  loadLists(data) {
+    dispatch(listsActions.loadAll())
+  },
 })
 
+const lifecycleHooks = {
+  componentDidMount() {
+    this.props.loadLists()
+  },
+}
+
 export const component = compose(
-  connect(stateMap, dispatchMap)
+  connect(stateMap, dispatchMap),
+  lifecycle(lifecycleHooks),
 )(IndexTake)
