@@ -5,12 +5,15 @@ import entries from 'lodash/entries'
 
 const db = firebase.database().ref('lists')
 const getList = (snapshot) => ({ ...snapshot.val(), id: snapshot.key })
-const getLists = (snapshot) => entries(snapshot).map(([ id, list ]) => ({ ...list, id }))
+const getLists = (snapshot) => entries(snapshot.val()).map(([ id, list ]) => ({ ...list, id }))
+const verifyExistence = (snapshot) => {
+  if (!snapshot.exists()) throw new Error('404')
+  return snapshot
+}
 
 export const name = 'lists'
 
 const initialState = Immutable({
-  isFetching: false,
   lists: []
 })
 
@@ -19,6 +22,7 @@ export const create = createAction(
   (list) => db
     .push(list)
     .once('value')
+    .then(verifyExistence)
     .then(getList)
 )
 
@@ -26,6 +30,7 @@ export const loadAll = createAction(
   'LISTS/LOAD_ALL',
   () => db
     .once('value')
+    .then(verifyExistence)
     .then(getLists)
 )
 
@@ -34,6 +39,7 @@ export const load = createAction(
   (id) => db
     .child(id)
     .once('value')
+    .then(verifyExistence)
     .then(getList)
 )
 
