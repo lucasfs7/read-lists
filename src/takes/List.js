@@ -3,9 +3,10 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { lifecycle } from 'recompose'
-import Embedly from 'react-embedly'
+import ui from 'redux-ui'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/List.styles'
+import Embedly from 'react-embedly'
 
 export const path = '/lists(/:id)'
 export const scene = 'app'
@@ -15,11 +16,16 @@ export const onEnter = (props, replace) => {
 
 const List = (props) => (
   <div className={ styles.container }>
-    { !props.list &&
-        <div className={ styles.notFound }>
-          <h1>List Not Found</h1>
-          <Link to='/'>Create a list</Link>
-        </div>
+    { props.ui.loading &&
+      <div className={ styles.loading }>
+        <h1>Loading ...</h1>
+      </div>
+    }
+    { !props.list && !props.ui.loading &&
+      <div className={ styles.notFound }>
+        <h1>List Not Found</h1>
+        <Link to='/'>Create a list</Link>
+      </div>
     }
     { props.list &&
       <div className={ styles.container }>
@@ -44,17 +50,23 @@ const stateMap = (state, props) => ({
 
 const dispatchMap = (dispatch, props) => ({
   loadList() {
-    dispatch(listsActions.load(props.params.id))
+    return dispatch(listsActions.load(props.params.id))
   },
 })
 
+const uiMap = { state: {
+  loading: true,
+} }
+
 const lifecycleHooks = {
-  componentDidMount() {
-    this.props.loadList()
+  async componentDidMount() {
+    await this.props.loadList()
+    this.props.updateUI({ loading: false })
   },
 }
 
 export const component = compose(
   connect(stateMap, dispatchMap),
+  ui(uiMap),
   lifecycle(lifecycleHooks),
 )(List)

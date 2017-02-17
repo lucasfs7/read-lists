@@ -19,6 +19,7 @@
     "redux-actions": "^1.2.1",
     "redux-form": "^6.5.0",
     "redux-promise": "^0.5.3",
+    "redux-ui": "^0.0.15",
     "seamless-immutable": "^7.0.1"
   },
   "scripts": {

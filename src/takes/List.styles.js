@@ -6,6 +6,19 @@ export const container = css({
   margin: '0 auto',
 })
 
+export const loading = css({
+  alignItems: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  '& h1': {
+    backgroundColor: colors.base3,
+    display: 'inline-block',
+    fontSize: '5em',
+    textAlign: 'center',
+  },
+})
+
 export const notFound = css({
   alignItems: 'center',
   display: 'flex',
