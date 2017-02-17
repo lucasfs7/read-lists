@@ -17,8 +17,8 @@ const IndexTake = (props) => (
     <div className={ styles.lists }>
       <h2>Your Lists ({ props.listsData.lists.length })</h2>
       <ul>
-        { props.listsData.lists.map((list) => (
-          <li key={ list.id }>
+        { props.listsData.lists.map((list, index) => (
+          <li key={ index }>
             <Link to={ `/lists/${ list.id }` }>
               { list.name } - { list.links.length } link{ list.links.length > 1 && 's'}
             </Link>
