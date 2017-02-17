@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "lists": {
+      ".read": true,
+      "$list": {
+        ".write": "data.child('owner').val() == null || (auth != null && auth.uid === data.child('owner').val())"
+      }
+    }
+  }
+}
