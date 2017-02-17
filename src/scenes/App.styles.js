@@ -15,4 +15,7 @@ export const header = css({
   margin: '0 auto',
   position: 'relative',
   textShadow: `3px 3px 0 ${ colors.base1 } , 4px 4px 0 ${ colors.base1 }`,
+  '& a': {
+    textDecoration: 'none',
+  },
 })
