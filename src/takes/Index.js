@@ -37,7 +37,7 @@ const dispatchMap = (dispatch) => ({
   createList(data) {
     dispatch(listsActions.create(data))
   },
-  loadLists(data) {
+  loadLists() {
     dispatch(listsActions.loadAll())
   },
 })

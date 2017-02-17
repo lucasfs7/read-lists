@@ -2,7 +2,9 @@ import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { lifecycle } from 'recompose'
 import Embedly from 'react-embedly'
+import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/List.styles'
 
 export const path = '/lists(/:id)'
@@ -40,6 +42,19 @@ const stateMap = (state, props) => ({
   list: state.lists.lists.find((list) => list.id === props.params.id),
 })
 
+const dispatchMap = (dispatch, props) => ({
+  loadList() {
+    dispatch(listsActions.load(props.params.id))
+  },
+})
+
+const lifecycleHooks = {
+  componentDidMount() {
+    this.props.loadList()
+  },
+}
+
 export const component = compose(
-  connect(stateMap),
+  connect(stateMap, dispatchMap),
+  lifecycle(lifecycleHooks),
 )(List)

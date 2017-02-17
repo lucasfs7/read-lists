@@ -4,7 +4,8 @@ import firebase from 'config/firebase'
 import entries from 'lodash/entries'
 
 const db = firebase.database().ref('lists')
-
+const getList = (snapshot) => ({ ...snapshot.val(), id: snapshot.key })
+const getLists = (snapshot) => entries(snapshot).map(([ id, list ]) => ({ ...list, id }))
 
 export const name = 'lists'
 
@@ -18,14 +19,22 @@ export const create = createAction(
   (list) => db
     .push(list)
     .once('value')
-    .then((data) => ({ ...data.val(), id: data.key }))
+    .then(getList)
 )
 
 export const loadAll = createAction(
   'LISTS/LOAD_ALL',
   () => db
-  .once('value')
-  .then((data) => entries(data.val()).map(([ id, list ]) => ({ ...list, id })))
+    .once('value')
+    .then(getLists)
+)
+
+export const load = createAction(
+  'LISTS/LOAD',
+  (id) => db
+    .child(id)
+    .once('value')
+    .then(getList)
 )
 
 export default handleActions({
@@ -36,5 +45,9 @@ export default handleActions({
   [loadAll]: (state, action) => Immutable({
     ...state,
     lists: [ ...action.payload ]
-  })
+  }),
+  [load]: (state, action) => Immutable({
+    ...state,
+    lists: [ ...state.lists, action.payload ]
+  }),
 }, initialState)
