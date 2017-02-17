@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions'
 import Immutable from 'seamless-immutable'
-import uuid from 'uuid/v4'
+import firebase from 'config/firebase'
+
+const db = firebase.database().ref('lists')
 
 export const name = 'lists'
 
@@ -11,7 +13,10 @@ const initialState = Immutable({
 
 export const create = createAction(
   'CREATE_LIST',
-  (list) => ({ ...list, id: uuid() })
+  (list) => db
+    .push(list)
+    .once('value')
+    .then((data) => ({ ...data.val(), id: data.key }))
 )
 
 export default handleActions({
