@@ -8,10 +8,6 @@ const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
   <form onSubmit={ handleSubmit } className={ className }>
     <FieldArray name='links' component={ ({ fields }) => (
       <div>
-        <input
-          onKeyDown={ addLink(fields) }
-          placeholder='link here...'
-          autoFocus={ true } />
         <ul>
           { fields.map((fieldName, index) => (
             <li key={ index }>
@@ -26,6 +22,10 @@ const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
             </li>
           )) }
         </ul>
+        <input
+          onKeyDown={ addLink(fields) }
+          placeholder='link here...'
+          autoFocus={ true } />
       </div>
     ) } />
     <Field
