@@ -20,7 +20,11 @@ const App = ({ children, currentUser, signin, signout }) => (
         </div>
       }
       { currentUser &&
-        <button onClick={ signout } className={ styles.signout }>Sign out</button>
+        <ul>
+          <li><Link to='/'>Create List</Link></li>
+          <li><Link to='/me/lists'>My Lists</Link></li>
+          <li><button onClick={ signout } className={ styles.signout }>Sign out</button></li>
+        </ul>
       }
     </header>
     { children }
