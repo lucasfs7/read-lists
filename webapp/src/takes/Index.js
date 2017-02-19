@@ -11,13 +11,13 @@ import ListForm from 'components/ListForm'
 export const path = '/'
 export const scene = 'app'
 
-const IndexTake = (props) => (
+const IndexTake = ({ listsData, currentUser, createList }) => (
   <div className={ styles.container }>
-    <ListForm onSubmit={ props.createList } className={ styles.form } />
+    <ListForm onSubmit={ createList(currentUser) } className={ styles.form } />
     <div className={ styles.lists }>
-      <h2>Your Lists ({ props.listsData.lists.length })</h2>
+      <h2>Your Lists ({ listsData.lists.length })</h2>
       <ul>
-        { props.listsData.lists.map((list, index) => (
+        { listsData.lists.map((list, index) => (
           <li key={ index }>
             <Link to={ `/lists/${ list.id }` }>
               { list.name } - { list.links.length } link{ list.links.length > 1 && 's'}
@@ -31,11 +31,14 @@ const IndexTake = (props) => (
 
 const stateMap = (state) => ({
   listsData: state.lists,
+  currentUser: state.users.currentUser,
 })
 
-const dispatchMap = (dispatch) => ({
-  createList(data) {
-    dispatch(listsActions.create(data))
+const dispatchMap = (dispatch, props) => ({
+  createList(user = {}) {
+    return (data) => {
+      dispatch(listsActions.create({ ...data, owner: user.uid }))
+    }
   },
   loadLists() {
     dispatch(listsActions.loadAll())
