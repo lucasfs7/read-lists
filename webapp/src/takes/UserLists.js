@@ -6,7 +6,7 @@ import { lifecycle } from 'recompose'
 import reverse from 'lodash/fp/reverse'
 import take from 'lodash/fp/take'
 import * as listsActions from 'reducers/Lists'
-import * as styles from 'takes/Index.styles'
+import * as styles from 'takes/UserLists.styles'
 
 export const path = '/me/lists'
 export const scene = 'app'
