@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 import { withProps } from 'recompose'
@@ -37,6 +37,16 @@ const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
     <button type='submit'>Save</button>
   </form>
 )
+
+ListForm.propTypes = {
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  handleSubmit: PropTypes.func,
+  addLink: PropTypes.func,
+  removeLink: PropTypes.func,
+}
 
 const isLink = new RegExp(/^(\w+)(:\/\/)[\w]\S+$/g)
 
