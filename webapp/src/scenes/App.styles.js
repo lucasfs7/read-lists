@@ -8,14 +8,33 @@ export const container = css({
 })
 
 export const header = css({
-  padding: '20px',
-  textAlign: 'center',
-  fontSize: '4em',
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'space-between',
   maxWidth: '500px',
   margin: '0 auto',
+  padding: '20px',
   position: 'relative',
+})
+
+export const title = css({
+  fontSize: '4em',
   textShadow: `3px 3px 0 ${ colors.base1 } , 4px 4px 0 ${ colors.base1 }`,
   '& a': {
     textDecoration: 'none',
   },
+})
+
+export const signin = css({
+  fontSize: '0.7em',
+  fontWeight: 'bold',
+  textAlign: 'center',
+})
+
+export const signout = css({
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  textDecoration: 'underline',
 })

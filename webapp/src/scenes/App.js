@@ -5,18 +5,22 @@ import { lifecycle } from 'recompose'
 import * as usersActions from 'reducers/Users'
 import * as styles from 'scenes/App.styles'
 import { Link } from 'react-router'
+import SigninButton from 'components/SigninButton'
 
 const App = ({ children, currentUser, signin, signout }) => (
   <div className={ styles.container }>
     <header className={ styles.header }>
-      <h1>
+      <h1 className={ styles.title }>
         <Link to='/'>ReadLists</Link>
       </h1>
       { !currentUser &&
-        <button onClick={ signin('google') }>signin with google</button>
+        <div className={ styles.signin }>
+          <p>Sign in:</p>
+          <SigninButton onClick={ signin('google') } provider='google' />
+        </div>
       }
       { currentUser &&
-        <button onClick={ signout }>signout</button>
+        <button onClick={ signout } className={ styles.signout }>Sign out</button>
       }
     </header>
     { children }
