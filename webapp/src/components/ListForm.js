@@ -3,14 +3,15 @@ import { compose } from 'redux'
 import { Field, FieldArray, reduxForm } from 'redux-form'
 import { withProps } from 'recompose'
 import delay from 'lodash/delay'
+import * as styles from 'components/ListForm.styles'
 
-const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
-  <form onSubmit={ handleSubmit } className={ className }>
+const ListForm = ({ handleSubmit, addLink, removeLink }) => (
+  <form onSubmit={ handleSubmit } className={ styles.form }>
     <FieldArray name='links' component={ ({ fields }) => (
       <div>
-        <ul>
+        <ul className={ styles.list }>
           { fields.map((fieldName, index) => (
-            <li key={ index }>
+            <li key={ index } className={ styles.link }>
               <Field name={ fieldName } component='input' type='hidden' />
               <span>{ fields.get(index) }</span>
               <button
@@ -39,10 +40,6 @@ const ListForm = ({ handleSubmit, addLink, removeLink, className }) => (
 )
 
 ListForm.propTypes = {
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
   handleSubmit: PropTypes.func,
   addLink: PropTypes.func,
   removeLink: PropTypes.func,

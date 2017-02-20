@@ -15,7 +15,7 @@ export const scene = 'app'
 
 const IndexTake = ({ lists, currentUser, createList }) => (
   <div className={ styles.container }>
-    <ListForm onSubmit={ createList(currentUser) } className={ styles.form } />
+    <ListForm onSubmit={ createList(currentUser) } />
     <div className={ styles.lists }>
       <h2>Recent Lists</h2>
       <ul>
