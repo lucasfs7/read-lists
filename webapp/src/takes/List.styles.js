@@ -38,6 +38,14 @@ export const title = css({
   textAlign: 'center',
 })
 
+export const icon = css({
+  marginRight: '10px',
+  cursor: 'pointer',
+  '&:hover': {
+    fill: colors.base1,
+  },
+})
+
 export const link = css({
   marginTop: '20px',
   padding: '20px',

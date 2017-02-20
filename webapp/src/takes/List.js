@@ -9,6 +9,7 @@ import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/List.styles'
 import Embedly from 'react-embedly'
 import ListForm from 'components/ListForm'
+import Icon from 'components/Icon'
 
 export const path = '/lists(/:id)'
 export const scene = 'app'
@@ -32,9 +33,13 @@ const List = ({ ui, list, updateList, removeList, startEditing }) => (
     { list && !ui.isEditing &&
       <div className={ styles.container }>
         <h1 className={ styles.title }>
-          { list.name } |
-          <button onClick={ removeList(list) }>remove</button>
-          <button onClick={ startEditing }>edit</button>
+          <span>{ list.name } | </span>
+          <i className={ styles.icon }>
+            <Icon name='LiTrash' onClick={ removeList(list) } />
+          </i>
+          <i className={ styles.icon }>
+            <Icon name='LiPencil' onClick={ startEditing } />
+          </i>
         </h1>
         { list.links.map((link, index) => (
           <div
