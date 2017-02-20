@@ -91,7 +91,7 @@ const uiMap = { state: {
 
 const lifecycleHooks = {
   async componentDidMount() {
-    await this.props.loadList()
+    if (!this.props.list) await this.props.loadList()
     this.props.updateUI({ loading: false })
   },
 }
