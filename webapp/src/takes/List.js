@@ -3,10 +3,12 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { lifecycle } from 'recompose'
+import { browserHistory } from 'react-router'
 import ui from 'redux-ui'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/List.styles'
 import Embedly from 'react-embedly'
+import ListForm from 'components/ListForm'
 
 export const path = '/lists(/:id)'
 export const scene = 'app'
@@ -14,23 +16,27 @@ export const onEnter = (props, replace) => {
   if (!props.params.id) replace('/')
 }
 
-const List = (props) => (
+const List = ({ ui, list, updateList, removeList, startEditing }) => (
   <div className={ styles.container }>
-    { props.ui.loading &&
+    { ui.loading &&
       <div className={ styles.loading }>
         <h1>Loading ...</h1>
       </div>
     }
-    { !props.list && !props.ui.loading &&
+    { !list && !ui.loading &&
       <div className={ styles.notFound }>
         <h1>List Not Found</h1>
         <Link to='/'>Create a list</Link>
       </div>
     }
-    { props.list &&
+    { list && !ui.isEditing &&
       <div className={ styles.container }>
-        <h1 className={ styles.title }>{ props.list.name }</h1>
-        { props.list.links.map((link, index) => (
+        <h1 className={ styles.title }>
+          { list.name } |
+          <button onClick={ removeList(list) }>remove</button>
+          <button onClick={ startEditing }>edit</button>
+        </h1>
+        { list.links.map((link, index) => (
           <div
             key={ index }
             className={ styles.link }>
@@ -40,6 +46,12 @@ const List = (props) => (
           </div>
         )) }
       </div>
+    }
+    { list && ui.isEditing &&
+      <ListForm
+        onSubmit={ updateList }
+        initialValues={ list }
+        className={ styles.form } />
     }
   </div>
 )
@@ -52,10 +64,24 @@ const dispatchMap = (dispatch, props) => ({
   loadList() {
     return dispatch(listsActions.load(props.params.id))
   },
+  updateList(data) {
+    dispatch(listsActions.update(data))
+    props.updateUI({ isEditing: false })
+  },
+  removeList(list) {
+    return () => {
+      dispatch(listsActions.remove(list))
+      browserHistory.push('/')
+    }
+  },
+  startEditing() {
+    props.updateUI({ isEditing: true })
+  },
 })
 
 const uiMap = { state: {
   loading: true,
+  isEditing: false,
 } }
 
 const lifecycleHooks = {
@@ -66,7 +92,7 @@ const lifecycleHooks = {
 }
 
 export const component = compose(
-  connect(stateMap, dispatchMap),
   ui(uiMap),
+  connect(stateMap, dispatchMap),
   lifecycle(lifecycleHooks),
 )(List)

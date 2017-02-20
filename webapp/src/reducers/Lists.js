@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions'
 import Immutable from 'seamless-immutable'
 import firebase from 'config/firebase'
 import entries from 'lodash/entries'
+import omit from 'lodash/omit'
 
 const db = firebase.database().ref('lists')
 const getList = (snapshot) => ({ ...snapshot.val(), id: snapshot.key })
@@ -26,6 +27,22 @@ export const create = createAction(
     .then(getList)
 )
 
+export const update = createAction(
+  'LISTS/UPDATE',
+  (list) => db
+    .child(list.id)
+    .update(omit(list, [ 'id' ]))
+    .then(() => list)
+)
+
+export const remove = createAction(
+  'LISTS/REMOVE',
+  (list) => db
+    .child(list.id)
+    .remove()
+    .then(() => list)
+)
+
 export const loadAll = createAction(
   'LISTS/LOAD_ALL',
   () => db
@@ -47,6 +64,21 @@ export default handleActions({
   [create]: (state, action) => Immutable({
     ...state,
     lists: [ ...state.lists, action.payload ]
+  }),
+  [update]: (state, action) => {
+    const index = state.lists.findIndex((l) => l.id === action.payload.id)
+    return Immutable({
+      ...state,
+      lists: [
+        ...state.lists.slice(0, index),
+        action.payload,
+        ...state.lists.slice(index),
+      ],
+    })
+  },
+  [remove]: (state, action) => Immutable({
+    ...state,
+    lists: [ ...state.lists.filter((l) => l.id !== action.payload.id) ],
   }),
   [loadAll]: (state, action) => Immutable({
     ...state,
