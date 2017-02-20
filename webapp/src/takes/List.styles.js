@@ -46,6 +46,20 @@ export const icon = css({
   },
 })
 
+export const claim = css({
+  textAlign: 'center',
+})
+
+export const claimButton = css({
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  margin: '0 5px',
+  outline: 'none',
+  textDecoration: 'underline',
+})
+
 export const link = css({
   marginTop: '20px',
   padding: '20px',

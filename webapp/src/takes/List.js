@@ -17,7 +17,15 @@ export const onEnter = (props, replace) => {
   if (!props.params.id) replace('/')
 }
 
-const List = ({ ui, list, currentUser, updateList, removeList, startEditing }) => (
+const List = ({
+  list,
+  currentUser,
+  ui,
+  updateList,
+  removeList,
+  claimOwnership,
+  startEditing
+}) => (
   <div className={ styles.container }>
     { ui.loading &&
       <div className={ styles.loading }>
@@ -32,6 +40,15 @@ const List = ({ ui, list, currentUser, updateList, removeList, startEditing }) =
     }
     { list && !ui.isEditing &&
       <div className={ styles.container }>
+        { currentUser && !list.owner &&
+          <p className={ styles.claim }>This list doesn't have an owner:
+            <button
+              onClick={ claimOwnership(list, currentUser) }
+              className={ styles.claimButton }>
+              claim it
+            </button>
+          </p>
+        }
         <h1 className={ styles.title }>
           { list.name }
           { currentUser && currentUser.uid === list.owner &&
@@ -83,6 +100,11 @@ const dispatchMap = (dispatch, props) => ({
     return () => {
       dispatch(listsActions.remove(list))
       browserHistory.push('/')
+    }
+  },
+  claimOwnership(list, user) {
+    return () => {
+      dispatch(listsActions.update({ ...list, owner: user.uid }))
     }
   },
   startEditing() {
