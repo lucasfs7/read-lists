@@ -72,7 +72,7 @@ export default handleActions({
       lists: [
         ...state.lists.slice(0, index),
         action.payload,
-        ...state.lists.slice(index),
+        ...state.lists.slice(index + 1),
       ],
     })
   },
