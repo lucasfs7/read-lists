@@ -1,8 +1,17 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { shallow } from 'enzyme'
 import SigninButton from 'components/SigninButton'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<SigninButton />, div)
+const setup = (props) => (
+  shallow(<SigninButton { ...props } />)
+)
+
+test('renders a button', () => {
+  const component = setup({ provider: 'google' })
+  expect(component.name()).toEqual('button')
+})
+
+test('render an image inside the button', () => {
+  const component = setup({ provider: 'google' })
+  expect(component.find('img').exists()).toEqual(true)
 })
