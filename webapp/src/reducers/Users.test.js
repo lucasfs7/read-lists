@@ -1,10 +1,27 @@
-import { reducer, request } from 'reducers/Users'
+import Reducer, * as actions from 'reducers/Users'
 
-it('should return type REQUEST', () => {
-  expect(request()).toEqual({ type: 'REQUEST' })
+test('load current user', () => {
+  const user = { displayName: 'test man' }
+  const state = Reducer(
+    undefined,
+    { type: actions.loadCurrentUser, payload: user },
+  )
+  expect(state).toEqual({ currentUser: user })
 })
 
-it('should change loading status when request', () => {
-  const state = reducer({}, request())
-  expect(state).toEqual({ loading: true })
+test('sign in user', () => {
+  const user = { displayName: 'test man' }
+  const state = Reducer(
+    undefined,
+    { type: actions.signin, payload: user },
+  )
+  expect(state).toEqual({ currentUser: user })
+})
+
+test('sign out user', () => {
+  const state = Reducer(
+    undefined,
+    { type: actions.signout },
+  )
+  expect(state).toEqual({ currentUser: null })
 })
