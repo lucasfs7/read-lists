@@ -1,8 +1,18 @@
+jest.mock('config/store')
+
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { mount } from 'enzyme'
+import { Provider } from 'react-redux'
+import configureStore from 'config/store'
 import { component as UserListsTake } from 'takes/UserLists'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<UserListsTake />, div)
+const setup = (props) => mount(
+  <Provider store={ configureStore() }>
+    <UserListsTake { ...props } />
+  </Provider>
+)
+
+test('render without crashing', () => {
+  const component = setup()
+  expect(component.exists()).toEqual(true)
 })
