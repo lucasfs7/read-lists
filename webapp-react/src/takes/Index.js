@@ -15,7 +15,7 @@ export const scene = 'app'
 
 const IndexTake = ({ lists, currentUser, createList }) => (
   <div className={ styles.container }>
-    <ListForm onSubmit={ createList(currentUser) } />
+    <ListForm onSubmit={ createList(currentUser) } privateAllowed={ !!currentUser } />
     <div className={ styles.lists }>
       <h2>Recent Lists</h2>
       <ul>
@@ -35,7 +35,7 @@ const IndexTake = ({ lists, currentUser, createList }) => (
 )
 
 const stateMap = (state) => ({
-  lists: state.lists.lists,
+  lists: state.lists.lists.filter((list) => !list.private),
   currentUser: state.users.currentUser,
 })
 

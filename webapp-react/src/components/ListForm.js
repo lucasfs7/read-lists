@@ -5,7 +5,7 @@ import { withProps } from 'recompose'
 import delay from 'lodash/delay'
 import * as styles from 'components/ListForm.styles'
 
-const ListForm = ({ handleSubmit, addLink, removeLink }) => (
+const ListForm = ({ handleSubmit, addLink, removeLink, privateAllowed }) => (
   <form onSubmit={ handleSubmit } className={ styles.form }>
     <FieldArray name='links' component={ ({ fields }) => (
       <div>
@@ -35,6 +35,15 @@ const ListForm = ({ handleSubmit, addLink, removeLink }) => (
       type='text'
       required={ true }
       placeholder='name your list...' />
+    { privateAllowed &&
+      <label>
+        <Field
+          name='private'
+          component='input'
+          type='checkbox' />
+        private?
+      </label>
+    }
     <button type='submit'>Save</button>
   </form>
 )

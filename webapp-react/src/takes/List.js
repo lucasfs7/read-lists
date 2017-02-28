@@ -78,7 +78,8 @@ const List = ({
       <ListForm
         onSubmit={ updateList }
         initialValues={ list }
-        className={ styles.form } />
+        className={ styles.form }
+        privateAllowed={ !!currentUser } />
     }
   </div>
 )

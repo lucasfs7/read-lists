@@ -15,6 +15,16 @@ export const form = css({
       outline: 'none',
     },
   },
+  '& input[type="checkbox"]': {
+    marginRight: '5px',
+    width: 'auto',
+  },
+  '& label': {
+    backgroundColor: '#DDE3DE',
+    display: 'block',
+    fontWeight: 'bold',
+    padding: '20px',
+  },
   '& button': {
     background: colors.base3,
     border: 'none',
