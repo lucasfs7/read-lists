@@ -41,7 +41,7 @@ const ListForm = ({ handleSubmit, addLink, removeLink, privateAllowed }) => (
           name='private'
           component='input'
           type='checkbox' />
-        private?
+        make it undiscoverable?
       </label>
     }
     <button type='submit'>Save</button>
