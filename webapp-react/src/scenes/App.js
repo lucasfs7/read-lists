@@ -20,10 +20,16 @@ const App = ({ children, currentUser, signin, signout }) => (
         </div>
       }
       { currentUser &&
-        <ul>
-          <li><Link to='/'>Create List</Link></li>
-          <li><Link to='/me/lists'>My Lists</Link></li>
-          <li><button onClick={ signout } className={ styles.signout }>Sign out</button></li>
+        <ul className={ styles.nav }>
+          <li className={ styles.navItem }>
+            <Link to='/'>Create List</Link>
+          </li>
+          <li className={ styles.navItem }>
+            <Link to='/me/lists'>My Lists</Link>
+          </li>
+          <li className={ styles.navItem }>
+            <button onClick={ signout } className={ styles.signout }>Sign out</button>
+          </li>
         </ul>
       }
     </header>

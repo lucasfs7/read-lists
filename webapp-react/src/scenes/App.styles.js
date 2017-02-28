@@ -10,6 +10,7 @@ export const container = css({
 export const header = css({
   alignItems: 'center',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'space-between',
   maxWidth: '500px',
   margin: '0 auto',
@@ -29,6 +30,13 @@ export const signin = css({
   fontSize: '0.7em',
   fontWeight: 'bold',
   textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  width: '290px',
+  '& p': {
+    marginRight: '10px',
+  },
 })
 
 export const signout = css({
@@ -37,4 +45,15 @@ export const signout = css({
   cursor: 'pointer',
   fontWeight: 'bold',
   textDecoration: 'underline',
+})
+
+export const nav = css({
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+})
+
+export const navItem = css({
+  margin: '0 10px',
 })
