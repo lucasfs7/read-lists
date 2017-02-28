@@ -7,7 +7,10 @@ export const container = css({
 })
 
 export const lists = css({
-  borderTop: `1px solid ${ colors.base6 }`,
-  margin: '20px 0 0 0',
+  borderTop: `2px solid ${ colors.base6 }`,
+  margin: '0',
   padding: '20px 0',
+  '@media(max-width: 500px)': {
+    padding: '20px',
+  },
 })
