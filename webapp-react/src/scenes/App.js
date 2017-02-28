@@ -25,6 +25,9 @@ const App = ({ children, currentUser, signin, signout }) => (
             <Link to='/'>Create List</Link>
           </li>
           <li className={ styles.navItem }>
+            <Link to='/discover'>Discover</Link>
+          </li>
+          <li className={ styles.navItem }>
             <Link to='/me/lists'>My Lists</Link>
           </li>
           <li className={ styles.navItem }>
