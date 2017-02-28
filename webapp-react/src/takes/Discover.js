@@ -7,6 +7,7 @@ import { Link } from 'react-router'
 import reverse from 'lodash/fp/reverse'
 import filter from 'lodash/fp/filter'
 import * as listsActions from 'reducers/Lists'
+import * as styles from 'takes/Discover.styles'
 
 export const path = '/discover'
 export const scene = 'app'
@@ -16,21 +17,30 @@ const Discover = ({
   location: { query },
   doSearch,
 }) => (
-  <div>
-    <input type='text' onChange={ doSearch } defaultValue={ query.q } />
-    <ul>
-      { compose(
-        filter((list) => list.name.toLowerCase().match((query.q || '').toLowerCase())),
-        filter((list) => !list.private),
-        reverse,
-        )(lists).map((list, index) => (
-        <li key={ index }>
-          <Link to={ `/lists/${ list.id }` }>
-            { list.name } ({ list.links.length } link{ list.links.length > 1 && 's'})
-          </Link>
-        </li>
-      )) }
-    </ul>
+  <div className={ styles.container }>
+    <input
+      className={ styles.searchField }
+      type='text'
+      onChange={ doSearch }
+      defaultValue={ query.q }
+      placeholder='filter by...'
+      autoFocus={ true } />
+    <div className={ styles.lists }>
+      <h2>All Lists { query.q ? `for: ${ query.q }`: '' }</h2>
+      <ul>
+        { compose(
+          filter((list) => list.name.toLowerCase().match(query.q)),
+          filter((list) => !list.private),
+          reverse,
+          )(lists).map((list, index) => (
+          <li key={ index }>
+            <Link to={ `/lists/${ list.id }` }>
+              { list.name } ({ list.links.length } link{ list.links.length > 1 && 's'})
+            </Link>
+          </li>
+        )) }
+      </ul>
+    </div>
   </div>
 )
 
@@ -44,7 +54,7 @@ const dispatchMap = (dispatch, props) => ({
   },
   doSearch(e) {
     e.preventDefault()
-    browserHistory.push(`/discover?q=${ e.target.value }`)
+    browserHistory.push(`/discover?q=${ e.target.value.toLowerCase() }`)
   },
 })
 
