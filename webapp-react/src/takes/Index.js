@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import { lifecycle } from 'recompose'
 import reverse from 'lodash/fp/reverse'
 import take from 'lodash/fp/take'
+import filter from 'lodash/fp/filter'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/Index.styles'
 
@@ -20,6 +21,7 @@ const IndexTake = ({ lists, currentUser, createList }) => (
       <h2>Recent Lists</h2>
       <ul>
         { compose(
+            filter((list) => !list.private),
             take(10),
             reverse,
           )(lists).map((list, index) => (
@@ -35,7 +37,7 @@ const IndexTake = ({ lists, currentUser, createList }) => (
 )
 
 const stateMap = (state) => ({
-  lists: state.lists.lists.filter((list) => !list.private),
+  lists: state.lists.lists,
   currentUser: state.users.currentUser,
 })
 
