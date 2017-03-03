@@ -55,5 +55,8 @@ export const nav = css({
 })
 
 export const navItem = css({
-  margin: '0 10px',
+  margin: '0 5px',
+  '@media(max-width: 400px)': {
+    fontSize: '14px',
+  },
 })
