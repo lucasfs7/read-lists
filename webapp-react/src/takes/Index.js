@@ -18,10 +18,10 @@ const IndexTake = ({ lists, currentUser, createList }) => (
   <div className={ styles.container }>
     <ListForm onSubmit={ createList(currentUser) } privateAllowed={ !!currentUser } />
     <div className={ styles.lists }>
-      <h2>Recent Lists</h2>
+      <h2>Recent Lists - <Link to='/discover'>(see all)</Link></h2>
       <ul>
         { compose(
-            take(10),
+            take(5),
             reverse,
             filter((list) => !list.private),
           )(lists).map((list, index) => (
