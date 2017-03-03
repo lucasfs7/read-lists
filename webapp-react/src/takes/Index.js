@@ -21,9 +21,9 @@ const IndexTake = ({ lists, currentUser, createList }) => (
       <h2>Recent Lists</h2>
       <ul>
         { compose(
-            filter((list) => !list.private),
             take(10),
             reverse,
+            filter((list) => !list.private),
           )(lists).map((list, index) => (
           <li key={ index }>
             <Link to={ `/lists/${ list.id }` }>
