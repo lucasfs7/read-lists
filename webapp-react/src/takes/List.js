@@ -26,7 +26,7 @@ const List = ({
   claimOwnership,
   startEditing
 }) => (
-  <div className={ styles.container }>
+  <div className={ styles.list }>
     { ui.loading &&
       <div className={ styles.loading }>
         <h1>Loading ...</h1>
@@ -39,7 +39,7 @@ const List = ({
       </div>
     }
     { list && !ui.isEditing &&
-      <div className={ styles.container }>
+      <div>
         { currentUser && !list.owner &&
           <p className={ styles.claim }>This list doesn't have an owner:
             <button

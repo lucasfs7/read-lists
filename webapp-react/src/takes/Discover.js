@@ -17,7 +17,7 @@ const Discover = ({
   location: { query },
   doSearch,
 }) => (
-  <div className={ styles.container }>
+  <div className={ styles.discover }>
     <input
       className={ styles.searchField }
       type='text'
@@ -25,8 +25,8 @@ const Discover = ({
       defaultValue={ query.q }
       placeholder='filter by...'
       autoFocus={ true } />
-    <div className={ styles.lists }>
-      <h2>All Lists { query.q ? `for: ${ query.q }`: '' }</h2>
+    <div className={ styles.list }>
+      <h2>All Lists { query.q && `for: ${ query.q }` }</h2>
       <ul>
         { compose(
           filter((list) => list.name.toLowerCase().match(query.q)),
@@ -35,7 +35,8 @@ const Discover = ({
           )(lists).map((list, index) => (
           <li key={ index }>
             <Link to={ `/lists/${ list.id }` }>
-              { list.name } ({ list.links.length } link{ list.links.length > 1 && 's'})
+              <span>{ list.links.length } link{ list.links.length > 1 && 's'}</span>
+              <p>{ list.name }</p>
             </Link>
           </li>
         )) }
