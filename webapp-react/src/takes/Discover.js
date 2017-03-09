@@ -9,6 +9,8 @@ import filter from 'lodash/fp/filter'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/Discover.styles'
 
+import Helmet from 'react-helmet'
+
 export const path = '/discover'
 export const scene = 'app'
 
@@ -18,6 +20,7 @@ const Discover = ({
   doSearch,
 }) => (
   <div className={ styles.container }>
+    <Helmet title='ReadLists - Discover' />
     <input
       className={ styles.searchField }
       type='text'

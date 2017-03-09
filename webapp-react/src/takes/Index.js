@@ -9,6 +9,7 @@ import filter from 'lodash/fp/filter'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/Index.styles'
 
+import Helmet from 'react-helmet'
 import ListForm from 'components/ListForm'
 
 export const path = '/'
@@ -16,6 +17,7 @@ export const scene = 'app'
 
 const IndexTake = ({ lists, currentUser, createList }) => (
   <div className={ styles.container }>
+    <Helmet title='ReadLists - Create Your List' />
     <ListForm onSubmit={ createList(currentUser) } privateAllowed={ !!currentUser } />
     <div className={ styles.lists }>
       <h2>Recent Lists - <Link to='/discover'>(see all)</Link></h2>

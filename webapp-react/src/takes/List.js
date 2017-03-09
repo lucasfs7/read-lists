@@ -10,6 +10,7 @@ import * as styles from 'takes/List.styles'
 import Embedly from 'react-embedly'
 import ListForm from 'components/ListForm'
 import Icon from 'components/Icon'
+import Helmet from 'react-helmet'
 
 export const path = '/lists(/:id)'
 export const scene = 'app'
@@ -34,12 +35,14 @@ const List = ({
     }
     { !list && !ui.loading &&
       <div className={ styles.notFound }>
+        <Helmet title='List Not Found' />
         <h1>List Not Found</h1>
         <Link to='/'>Create a list</Link>
       </div>
     }
     { list && !ui.isEditing &&
       <div className={ styles.container }>
+        <Helmet title={ list.name } />
         { currentUser && !list.owner &&
           <p className={ styles.claim }>This list doesn't have an owner:
             <button
@@ -75,11 +78,14 @@ const List = ({
       </div>
     }
     { list && ui.isEditing &&
-      <ListForm
-        onSubmit={ updateList }
-        initialValues={ list }
-        className={ styles.form }
-        privateAllowed={ !!currentUser } />
+      <div>
+        <Helmet title={ list.name } />
+        <ListForm
+          onSubmit={ updateList }
+          initialValues={ list }
+          className={ styles.form }
+          privateAllowed={ !!currentUser } />
+      </div>
     }
   </div>
 )
