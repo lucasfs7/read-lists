@@ -8,11 +8,14 @@ import take from 'lodash/fp/take'
 import * as listsActions from 'reducers/Lists'
 import * as styles from 'takes/UserLists.styles'
 
+import Helmet from 'react-helmet'
+
 export const path = '/me/lists'
 export const scene = 'app'
 
 const UserLists = ({ lists, currentUser }) => (
   <div className={ styles.container }>
+    <Helmet title='ReadLists - My Lists' />
     <h2>{ lists.length } Lists</h2>
     <ul>
       { compose(
