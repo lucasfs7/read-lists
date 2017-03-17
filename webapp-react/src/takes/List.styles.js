@@ -1,9 +1,10 @@
 import { css } from 'glamor'
 import * as colors from 'config/colors'
 
-export const container = css({
-  maxWidth: '500px',
+export const list = css({
   margin: '0 auto',
+  maxWidth: '500px',
+  padding: '10px',
 })
 
 export const loading = css({
@@ -34,13 +35,13 @@ export const notFound = css({
 
 export const title = css({
   fontSize: '2em',
-  margin: '20px 0',
+  margin: '15px 10px 30px',
   textAlign: 'center',
 })
 
 export const icon = css({
-  marginRight: '10px',
   cursor: 'pointer',
+  marginRight: '10px',
   '&:hover': {
     fill: colors.base1,
   },
@@ -51,22 +52,25 @@ export const claim = css({
 })
 
 export const claimButton = css({
-  background: 'transparent',
-  border: 'none',
+  backgroundColor: 'transparent',
+  border: '0',
   cursor: 'pointer',
   fontWeight: 'bold',
   margin: '0 5px',
-  outline: 'none',
+  outline: '0',
   textDecoration: 'underline',
 })
 
 export const link = css({
-  marginTop: '20px',
-  padding: '20px',
-  '&:hover': {
-    backgroundColor: colors.base3,
+  marginBottom: '25px',
+  '& .embedly': {
+    backgroundColor: 'white',
+    border: '0 !important',
+    ':hover': {
+      backgroundColor: colors.base3,
+    }
   },
-  '& .embedly ': {
-    border: 'none !important',
+  '& .embedly__image': {
+    height: '100% !important',
   },
 })

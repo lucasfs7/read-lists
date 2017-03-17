@@ -27,7 +27,7 @@ const List = ({
   claimOwnership,
   startEditing
 }) => (
-  <div className={ styles.container }>
+  <div className={ styles.list }>
     { ui.loading &&
       <div className={ styles.loading }>
         <h1>Loading ...</h1>
